@@ -42,43 +42,47 @@ public class Job {
         this.job = j;
     }
 
+    private Object invoke(String name) {
+        return this.framework.invoke(this.job, name);
+    }
+
     public RubyFixnum jid() {
-        RubyFixnum str = (RubyFixnum) this.framework.invoke(this.job, "jid");
+        RubyFixnum str = (RubyFixnum) invoke("jid");
         return str;
     }
 
     public String name() {
-        RubyString str = (RubyString) this.framework.invoke(this.job, "name");
+        RubyString str = (RubyString) invoke("name");
         return str.asJavaString();
     }
 
     public RubyThread job_thread() {
-        RubyThread str = (RubyThread) this.framework.invoke(this.job, "job_thread");
+        RubyThread str = (RubyThread) invoke("job_thread");
         return str;
     }
 
     public RubyHash container() {
-        RubyHash str = (RubyHash) this.framework.invoke(this.job, "container");
+        RubyHash str = (RubyHash) invoke("container");
         return str;
     }
 
     public RubyProc run_proc() {
-        RubyProc str = (RubyProc) this.framework.invoke(this.job, "run_proc");
+        RubyProc str = (RubyProc) invoke("run_proc");
         return str;
     }
 
     public RubyProc clean_proc() {
-        RubyProc str = (RubyProc) this.framework.invoke(this.job, "clean_proc");
+        RubyProc str = (RubyProc) invoke("clean_proc");
         return str;
     }
 
     public RubyArray ctx() {
-        RubyArray str = (RubyArray) this.framework.invoke(this.job, "ctx");
+        RubyArray str = (RubyArray) invoke("ctx");
         return str;
     }
 
     public RubyTime start_time() {
-        RubyTime str = (RubyTime) this.framework.invoke(this.job, "start_time");
+        RubyTime str = (RubyTime) invoke("start_time");
         return str;
     }
 
