@@ -7,6 +7,7 @@ package org.metasploit.simple;
 /**
  *
  * @author hughneale
+ *
  */
 public class Console {
 

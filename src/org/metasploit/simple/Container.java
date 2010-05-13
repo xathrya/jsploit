@@ -20,8 +20,9 @@ import netshark.DataStore;
  * @author hughneale
  */
 public class Container extends ScriptingContainer {
-    
-    private String DIR = "/Users/hughneale/NetBeansProjects/netshark/lib/";
+
+    // Directory of the JRuby Base and Metasploit Framework base.
+    private String DIR = "/opt/jsploit/";
     private String MSF_DIR = "msf";
     private String JRUBY_DIR = "jruby";
     private short HEAP_SIZE = 75;
