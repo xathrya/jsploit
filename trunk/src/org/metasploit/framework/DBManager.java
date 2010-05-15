@@ -5,6 +5,7 @@
 package org.metasploit.framework;
 
 import org.metasploit.simple.Console;
+import org.metasploit.framework.types.Service;
 
 import org.jruby.RubyObject;
 import org.jruby.RubyArray;
@@ -15,7 +16,7 @@ import org.jruby.RubyString;
 import org.jruby.RubyNil;
 
 import java.util.Iterator;
-import java.util.Map;
+import java.util.ArrayList;
 
 /**
  *
@@ -35,6 +36,14 @@ public class DBManager {
     /*
      *
      * Please ensure you have installed the following JRUBY gems!
+     *
+     * MySQL
+     * 
+     * sudo jruby -S gem install jdbc-mysql
+     * sudo jruby -S gem install activerecord-jdbcmysql-adapter
+     *
+     * SQLite3
+     * Currently, having issues with SQLite3
      *
      * sudo jruby -S gem install jdbc-sqlite3
      * sudo jruby -S gem install activerecord-jdbcsqlite3-adapter
@@ -94,18 +103,29 @@ public class DBManager {
 
     }
 
-    public void services() {
+    public ArrayList services(Workspace wrk) {  
+        return services((RubyArray) this.framework.invoke(this.database, "services", wrk.self()));
+    }
 
-        RubyArray services = (RubyArray) this.framework.invoke(this.database, "services");
+    public void hosts(Workspace wrk) {
 
-        System.out.println("Found " + services.size() + " services.");
 
-        Iterator it = services.iterator();
+
+    }
+
+    public ArrayList services() {
+        return services((RubyArray) this.framework.invoke(this.database, "services"));
+    }
+
+
+    private ArrayList services(RubyArray rarray) {
+
+        ArrayList<Service> servs = new ArrayList();
+        Iterator it = rarray.iterator();
 
         while (it.hasNext()) {
 
             RubyObject od = (RubyObject) it.next();
-
             Object rname = this.framework.invoke(od, "name");
 
             String name = "";
@@ -116,19 +136,21 @@ public class DBManager {
                 System.out.println(rname.getClass().getCanonicalName());
             }
 
-            RubyFixnum port = (RubyFixnum) this.framework.invoke(od, "port");
+            long port = ((RubyFixnum) this.framework.invoke(od, "port")).getLongValue();
             String state = ((RubyString) this.framework.invoke(od, "state")).asJavaString();
             String proto = ((RubyString) this.framework.invoke(od, "proto")).asJavaString();
 
-            Console.out("port " + port + " (" + proto + ") " + state + " - " + name);
+            Service c = new Service();
+            c.setName(name);
+            c.setPort(port);
+            c.setState(state);
+            c.setProto(proto);
 
-            // ss =  this.framework.invoke(od, "addresses");
-
-            //System.out.println(ss.getClass().getCanonicalName());
+            servs.add(c);
 
         }
 
-
+        return servs;
     }
+    
 }
-

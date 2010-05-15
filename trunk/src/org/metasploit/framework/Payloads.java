@@ -23,15 +23,15 @@ public class Payloads extends ModuleManager {
      public Payload create(String mod) {
 
         if (!this.getModule().keySet().contains(mod)) {
-            Console.err("Exploit \"" + mod + "\" is not in the database.");
+            Console.err("Payload \"" + mod + "\" is not in the database.");
             return null;
         }
 
-        Console.out("Exploit " + mod);
+        Console.out("Payload " + mod);
 
-        RubyString exploit_name = RubyString.newString(this.getFramework().ruby(), mod);
+        RubyString payload_name = RubyString.newString(this.getFramework().ruby(), mod);
 
-        return new Payload(this.getFramework(), (RubyObject) this.getFramework().invoke(this.getModule(), "create", exploit_name));
+        return new Payload(this.getFramework(), (RubyObject) this.getFramework().invoke(this.getModule(), "create", payload_name));
 
     }
 

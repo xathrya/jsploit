@@ -7,6 +7,7 @@ package org.metasploit.test;
 
 import java.util.Map;
 import java.util.Iterator;
+import java.util.ArrayList;
 
 import org.metasploit.simple.Console;
 import org.metasploit.simple.Container;
@@ -16,6 +17,7 @@ import org.metasploit.framework.Framework;
 import org.metasploit.framework.Auxiliary;
 import org.metasploit.framework.Workspace;
 import org.metasploit.framework.OptBase;
+import org.metasploit.framework.types.Service;
 
 /**
  *
@@ -38,7 +40,7 @@ public class AuxiliaryExample {
         if(!mfw.db().connect()) {
             Console.err("Failed to connect to the database");
         } else {
-            Console.out("Connected.");
+            Console.pls("Connected.");
         }
 
         // Set payload and exploit
@@ -86,11 +88,13 @@ public class AuxiliaryExample {
 
         // Set exploit options
 
+        //aux.set("RHOSTS", "10.0.0.211");
         aux.set("RHOSTS", "92.48.91.47");
-        aux.set("PORTS", "80");
-        aux.set("THREADS", "50");
-        aux.set("ShowProgress", true);
-        aux.set("ShowProgressPercent", 1);
+        aux.set("PORTS", "22-25,80");
+        //aux.set("THREADS", "50");
+        //aux.set("ShowProgress", true);
+        //aux.set("ShowProgressPercent", 1);
+        //aux.set("INTERFACE", "en1");
 
         mfw.auxiliaries().run(aux);
 
@@ -101,10 +105,21 @@ public class AuxiliaryExample {
             Workspace work = aux.myworkspace();
             Console.out("Using space: " + work.Name());
 
-            Console.pls("Reading database.");
+            ArrayList services = mfw.db().services(aux.myworkspace());
 
-            mfw.events().db_event_subscribers();
-            mfw.db().services();
+            Iterator sv = services.iterator();
+            while(sv.hasNext()) {
+
+                Service s = (Service) sv.next();
+
+                Console.out("port " + s.getPort() + " (" + s.getProto() + ") " + s.getState() + " - " + s.getName());
+
+            }
+
+            //Console.pls("Reading database.");
+
+            //mfw.events().db_event_subscribers();
+            //mfw.db().services();
 
         }
 

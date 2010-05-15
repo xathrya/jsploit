@@ -26,9 +26,6 @@ public class DataStore {
         Console.out("DataStore Module called.");
         this.framework = f;
         this.datastore = (RubyHash) framework.invoke("datastore");
-
-        Console.out(this.datastore.getClass().getCanonicalName());
-
     }
 
     private RubyObject toRuby(Object r) {
