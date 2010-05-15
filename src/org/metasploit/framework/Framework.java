@@ -26,13 +26,14 @@ public class Framework {
     private Exploits exploits;
     private Payloads payloads;
     private Nops nops;
-    private Auxiliary auxiliary;
+    private Auxiliaries auxiliaries;
     private Sessions sessions;
     private Auxmgr logging;
     private Plugins plugins;
     private Events events;
-    private Database database;
+    private DBManager database;
     private Jobs jobs;
+    private DataStore datastore;
 
     public Framework(Simple sim) {
         framework = (RubyObject) sim.framework;
@@ -97,7 +98,7 @@ public class Framework {
         Console.out("Exploits: " + exploits().avaliable() + ", Payloads: " + payloads().avaliable());
     }
 
-    public Object encoders() {
+    public Encoders encoders() {
         if (encoders == null) {
             encoders = new Encoders(this);
         }
@@ -111,7 +112,7 @@ public class Framework {
         return exploits;
     }
 
-    public Object nops() {
+    public Nops nops() {
         if (nops == null) {
             nops = new Nops(this);
         }
@@ -125,11 +126,11 @@ public class Framework {
         return payloads;
     }
 
-    public Object auxiliary() {
-        if (auxiliary == null) {
-            auxiliary = new Auxiliary(this);
+    public Auxiliaries auxiliaries() {
+        if (auxiliaries == null) {
+            auxiliaries = new Auxiliaries(this);
         }
-        return auxiliary;
+        return auxiliaries;
     }
 
     public Sessions sessions() {
@@ -172,11 +173,18 @@ public class Framework {
         return events;
     }
 
-    public Database database() {
+    public DBManager db() {
         if (database == null) {
-            database = new Database(this);
+            database = new DBManager(this);
         }
         return database;
+    }
+    
+    public DataStore datastore() {
+        if (datastore == null) {
+            datastore = new DataStore(this);
+        }
+        return datastore;
     }
 
     public Options options() {

@@ -32,13 +32,16 @@ public class Container extends ScriptingContainer {
     
     public Container() {
         Console.pls("JRuby about to start. ");
+        this.Reload();
+    }
 
+    public void Reload() {
+        
         if(!checkheap()) {
             Console.err("Java heap size is too small. Please restart");
             Console.err("with java -Xms80m -Xmx120m -jar metasploit.jar");
         }
         
-        //cfg = Ruby.getGlobalRuntime().getInstanceConfig();
         this.setCompatVersion(CompatVersion.RUBY1_9);
         this.setHomeDirectory(DIR + JRUBY_DIR + DataStore.SEP);
         this.setCurrentDirectory(DIR + MSF_DIR + DataStore.SEP);

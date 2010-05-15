@@ -7,8 +7,9 @@ package org.metasploit.framework;
 
 import org.metasploit.simple.Console;
 
-import org.jruby.RubyArray;
+import org.jruby.RubyObject;
 import org.jruby.RubyNil;
+import org.jruby.RubyArray;
 
 import java.util.Iterator;
 import java.util.Map;
@@ -19,54 +20,20 @@ import java.util.Map;
 public class Events {
 
     private Framework framework;
-    RubyArray events;
+    RubyObject events;
 
     public Events(Framework f) {
-        Console.out("Exploits Module called.");
+        Console.out("Events Module called.");
         this.framework = f;
-        events = (RubyArray) framework.invoke("plugins");
+        events = (RubyObject) framework.invoke("events");
     }
 
-    @Override
-    public String toString() {
+    public void db_event_subscribers() {
 
-        if((Object)events instanceof RubyNil) {
-            return "Events empty.";
-        }
+       RubyArray db_event_subscribers =  (RubyArray) this.framework.invoke(this.events, "db_event_subscribers");
 
-        Iterator it = events.iterator();
+       System.out.println("db_event_subscribers size " + db_event_subscribers.size());
 
-        System.out.println("Event Log: " + events.size());
-
-        while (it.hasNext()) {
-
-            Map.Entry entry = (Map.Entry) it.next();
-            System.out.println(entry.getKey().getClass().toString());
-            System.out.println(entry.getValue().getClass().toString());
-
-            //value.callMethod("");
-           // Map<Class, Map<String, Object>> obj = value.getClassAnnotations();
-           // System.out.println(value.getName());
-
-            //System.out.println(key);
-            //System.out.println(value.getClass().getName() + " Signatures " + obj.size());
-
-            //Iterator its = obj.entrySet().iterator();
-
-           // while (its.hasNext()) {
-//
-               // Map.Entry entryd = (Map.Entry) its.next();
-           //     Class keyd = (Class) entryd.getKey();
-           //     Map<String, Object> valued = (Map) entryd.getValue();
-
-           //     System.out.println("\t" + keyd.getName());
-
-           // }
-
-            //py.callMethod("");
-
-        }
-        return null;
     }
 
 }

@@ -29,9 +29,9 @@ public class Payloads extends ModuleManager {
 
         Console.out("Exploit " + mod);
 
-        RubyString exploit_name = RubyString.newString(this.getFramwork().ruby(), mod);
+        RubyString exploit_name = RubyString.newString(this.getFramework().ruby(), mod);
 
-        return new Payload(this.getFramwork(), (RubyObject) this.getFramwork().invoke(this.getModule(), "create", exploit_name));
+        return new Payload(this.getFramework(), (RubyObject) this.getFramework().invoke(this.getModule(), "create", exploit_name));
 
     }
 

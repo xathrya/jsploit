@@ -34,6 +34,20 @@ public class Module<E> {
     public RubyObject self() {
         return this.module;
     }
+    
+    // Sets keys to the datastore.
+
+    public void set(String key, Object value) {
+        this.getFramework().datastore().store(key, value);
+    }
+
+    // Updates datastore
+
+    public void updateValue(String key, Object value) {
+        this.getFramework().datastore().store(key, value);
+    }
+
+    // Invokes local methods
 
     private String invoke(String method) {
         RubyString name = (RubyString) this.framework.invoke(this.module, method);
