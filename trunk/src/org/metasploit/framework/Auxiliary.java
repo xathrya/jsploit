@@ -5,18 +5,32 @@
 
 package org.metasploit.framework;
 
+import org.metasploit.simple.Console;
+
+import org.jruby.RubyArray;
+import org.jruby.RubyObject;
+import org.jruby.RubyBoolean;
+
 /**
  *
  * @author hughneale
  */
-public class Auxiliary extends ModuleManager {
+public class Auxiliary extends Module {
 
-    //private Framework framework;
-    //RubyHash exploits;
-    //Ruby ruby;
+    public Auxiliary(Framework fw, RubyObject m) {
+        super(fw, m);
+    }
 
-    public Auxiliary(Framework f) {
-        super(f, "auxiliary");
+    public long check() {
+        return (Long)((RubyArray) this.getFramework().invoke(this.self(), "check")).get(0);
+    }
+
+    public boolean db() {
+        return ((RubyBoolean) this.getFramework().invoke(this.self(), "db")).isTrue();
+    }
+    
+    public Workspace myworkspace() {
+        return new Workspace(this.getFramework(), (RubyObject) this.getFramework().invoke(this.self(), "myworkspace"));
     }
 
 }

@@ -7,18 +7,11 @@ package org.metasploit.framework;
 
 import org.metasploit.simple.Console;
 
-import org.jruby.Ruby;
-import org.jruby.RubyNil;
 import org.jruby.RubyHash;
-import org.jruby.RubyClass;
-import org.jruby.RubyString;
 import org.jruby.RubyObject;
-import org.jruby.RubyException;
-import org.jruby.RubyBoolean;
-import org.jruby.RubyNoMethodError;
 
 import java.util.Iterator;
-import java.util.Map;
+import java.util.Set;
 
 
 /**
@@ -42,16 +35,20 @@ public class ModuleManager {
         this.framework.exception((RubyObject) this.framework.invoke(oexploit, "error"));
     }
 
-    public Framework getFramwork() {
+    public Framework getFramework() {
         return this.framework;
     }
 
     public RubyHash list() {
-        return module;
+        return this.module;
     }
 
     public Iterator get() {
-        return module.keySet().iterator();
+        return this.module.keySet().iterator();
+    }
+
+    public Set getKeys() {
+        return this.module.keySet();
     }
 
     public RubyHash getModule() {
