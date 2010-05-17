@@ -69,7 +69,7 @@ public class DBManager {
 
         RubyHash send = RubyHash.newHash(this.framework.ruby());
 
-        //send.put(:adapter, "mysql");
+        //send.put(:adapter, "jdbcmysql"); <- for JRuby
         //send.put(:host, "127.0.0.1");
         //send.put(:username, "hugh");
         //send.put(:password, "password");
