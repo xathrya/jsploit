@@ -43,8 +43,10 @@ public class AuxiliaryExample {
             Console.pls("Connected.");
         }
 
-        // Set payload and exploit
-        // This example exploits an issue within XP SP0 SMB (CIFS).
+        // Set Auxiliary
+        // This example will port scan a remote machine. Please note in order
+        // to use the SYN Auxiliary module it must be compiled for JRuby from
+        // The MSF base.
 
         //Auxiliary aux = mfw.auxiliaries().create("scanner/portscan/syn");
         Auxiliary aux = mfw.auxiliaries().create("scanner/portscan/tcp");
@@ -88,8 +90,7 @@ public class AuxiliaryExample {
 
         // Set exploit options
 
-        //aux.set("RHOSTS", "10.0.0.211");
-        aux.set("RHOSTS", "92.48.91.47");
+        aux.set("RHOSTS", "10.0.0.211");
         aux.set("PORTS", "22-25,80");
         //aux.set("THREADS", "50");
         //aux.set("ShowProgress", true);
@@ -115,14 +116,6 @@ public class AuxiliaryExample {
                 Console.out("port " + s.getPort() + " (" + s.getProto() + ") " + s.getState() + " - " + s.getName());
 
             }
-
-            //Console.pls("Reading database.");
-
-            //mfw.events().db_event_subscribers();
-            //mfw.db().services();
-
         }
-
     }
-
 }
