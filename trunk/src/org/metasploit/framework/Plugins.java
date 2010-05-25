@@ -19,7 +19,7 @@ public class Plugins {
     RubyObject exploits;
 
     public Plugins(Framework f) {
-        Console.out("Exploits Module called.");
+        Console.out("Plugins Module called.");
         this.framework = f;
         exploits = (RubyObject) framework.invoke("plugins");
     }

@@ -42,6 +42,6 @@ public class Console {
     }
 
     public static final void shl(String out) {
-        System.out.println("\033[34m" + out + "\033[0m");
+        System.out.println("\033[37m" + out + "\033[0m");
     }
 }

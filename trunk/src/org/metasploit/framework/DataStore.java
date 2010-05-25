@@ -10,6 +10,7 @@ import org.jruby.RubyString;
 import org.jruby.RubyHash;
 import org.jruby.RubyFixnum;
 import org.jruby.RubyBoolean;
+import org.jruby.RubyObject;
 
 import org.metasploit.simple.Console;
 
@@ -26,6 +27,12 @@ public class DataStore {
         Console.out("DataStore Module called.");
         this.framework = f;
         this.datastore = (RubyHash) framework.invoke("datastore");
+    }
+
+    public DataStore(Framework f, RubyObject ds) {
+        Console.out("DataStore Module called.");
+        this.framework = f;
+        this.datastore = (RubyHash) framework.invoke(ds, "datastore");
     }
 
     private RubyObject toRuby(Object r) {

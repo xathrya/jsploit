@@ -118,7 +118,7 @@ public class OptBase {
     }
 
     public Object Default() {
-        return Debug.fromObject(this.invoke("default"));
+        return this.invoke("default");
     }
 
     public Object Enums() {

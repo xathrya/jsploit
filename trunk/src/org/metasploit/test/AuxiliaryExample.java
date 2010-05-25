@@ -27,11 +27,7 @@ public class AuxiliaryExample {
 
     public static void main(String args[]) throws Exception {
 
-        Container cont = new Container();
-        cont.setDirectory("/Users/hughneale/NetBeansProjects/netshark/lib/"); //
-        cont.Reload();
-
-        Framework mfw = new Metasploit(cont).Simple().Framework();
+        Framework mfw = new Metasploit().Simple().Framework();
 
         mfw.banner(); // Print banner
 
@@ -88,10 +84,12 @@ public class AuxiliaryExample {
 
         }
 
+        String rhost = "10.0.0.214";
+
         // Set exploit options
 
-        aux.set("RHOSTS", "10.0.0.211");
-        aux.set("PORTS", "22-25,80");
+        aux.set("RHOSTS", rhost);
+        aux.set("PORTS", "22-25,80,139.445");
         //aux.set("THREADS", "50");
         //aux.set("ShowProgress", true);
         //aux.set("ShowProgressPercent", 1);
@@ -106,7 +104,11 @@ public class AuxiliaryExample {
             Workspace work = aux.myworkspace();
             Console.out("Using space: " + work.Name());
 
-            ArrayList services = mfw.db().services(aux.myworkspace());
+            Console.out("TRUE/TCP/10.0.0.214");
+
+            ArrayList services = mfw.db().services(aux.myworkspace(), true, "tcp", rhost);
+
+            Console.pls(services.size() + " service(s) found, for host " + rhost + ".");
 
             Iterator sv = services.iterator();
             while(sv.hasNext()) {

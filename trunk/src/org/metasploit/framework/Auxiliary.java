@@ -5,8 +5,6 @@
 
 package org.metasploit.framework;
 
-import org.metasploit.simple.Console;
-
 import org.jruby.RubyArray;
 import org.jruby.RubyObject;
 import org.jruby.RubyBoolean;

@@ -15,6 +15,8 @@ import org.jruby.RubyFixnum;
 import org.jruby.RubyString;
 import org.jruby.RubyNil;
 
+import java.net.InetAddress;
+
 import java.util.Iterator;
 import java.util.ArrayList;
 
@@ -103,7 +105,44 @@ public class DBManager {
 
     }
 
+    public void sql_query(String sql) {
+        
+        RubyString rsql = RubyString.newString(this.framework.ruby(), sql);
+        Object result = this.framework.invoke(this.database, "sql_query", rsql);
+
+        System.out.println(result.getClass().getCanonicalName());
+
+    }
+
     public ArrayList services(Workspace wrk) {  
+        return services((RubyArray) this.framework.invoke(this.database, "services", wrk.self()));
+    }
+
+    public ArrayList services(Workspace wrk, boolean only_up) {
+        RubyBoolean up = RubyBoolean.newBoolean(this.framework.ruby(), only_up);
+        return services((RubyArray) this.framework.invoke(this.database, "services", wrk.self(), up));
+    }
+
+    public ArrayList services(Workspace wrk, boolean only_up, String proto) {
+        RubyBoolean up = RubyBoolean.newBoolean(this.framework.ruby(), only_up);
+        RubyString protod = RubyString.newString(this.framework.ruby(), proto);
+        return services((RubyArray) this.framework.invoke(this.database, "services", wrk.self(), up, protod));
+    }
+
+    public ArrayList services(Workspace wrk, boolean only_up, String proto, String addresses) {
+        RubyBoolean up = RubyBoolean.newBoolean(this.framework.ruby(), only_up);
+        RubyString protod = RubyString.newString(this.framework.ruby(), proto);
+        RubyString address = RubyString.newString(this.framework.ruby(), addresses);
+        return services((RubyArray) this.framework.invoke(this.database, "services", wrk.self(), up, protod, address));
+    }
+
+    // @TODO
+
+    public ArrayList services(Workspace wrk, boolean only_up, long proto, String addresses, long ports) {
+        return services((RubyArray) this.framework.invoke(this.database, "services", wrk.self()));
+    }
+
+    public ArrayList services(Workspace wrk, boolean only_up, long proto, String addresses, long ports, String names) {
         return services((RubyArray) this.framework.invoke(this.database, "services", wrk.self()));
     }
 
@@ -151,6 +190,16 @@ public class DBManager {
         }
 
         return servs;
+    }
+
+    public void getTarget(long id) {
+
+
+
+    }
+
+    public void Loots() {
+
     }
     
 }

@@ -5,14 +5,6 @@
 
 package org.metasploit.framework;
 
-import org.metasploit.simple.Console;
-
-import org.jruby.RubyHash;
-import org.jruby.RubyNil;
-
-import java.util.Iterator;
-import java.util.Map;
-
 /**
  *
  * @author hughneale
