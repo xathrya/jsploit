@@ -8,11 +8,8 @@ package org.metasploit.framework;
 import org.metasploit.simple.Console;
 
 import org.jruby.RubyObject;
-import org.jruby.RubyNil;
 import org.jruby.RubyArray;
 
-import java.util.Iterator;
-import java.util.Map;
 /**
  *
  * @author hughneale

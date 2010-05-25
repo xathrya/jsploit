@@ -2,13 +2,13 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package org.metasploit.framework;
 
 import org.metasploit.simple.Console;
 
 import org.jruby.RubyHash;
 import org.jruby.RubyFixnum;
+import org.jruby.RubyObject;
 
 import java.util.Iterator;
 
@@ -24,36 +24,30 @@ public class Sessions {
     public Sessions(Framework f) {
         Console.out("Sessions Module called.");
         this.framework = f;
+        sessions = (RubyHash) this.framework.invoke("sessions");
     }
 
     public RubyHash list() {
-        return (sessions = (RubyHash) this.framework.invoke("sessions"));
+        return this.sessions;
     }
 
-     /*
-     * Retuns the number of avaliable exploits loaded into the system.
+    /*
+     * Retuns the number of avaliable sessions loaded into the system.
      */
     public int avaliable() {
-        if(sessions == null) {
-            list();
-        }
         return sessions.size();
     }
 
-
     @Override
     public String toString() {
-        if(sessions == null) {
-            list();
-        }
 
         Iterator it = sessions.directKeySet().iterator();
 
-        while(it.hasNext()) {
+        while (it.hasNext()) {
 
             RubyFixnum s = (RubyFixnum) it.next();
 
-           // System.out.println(s.toString());
+            // System.out.println(s.toString());
 
             //py.callMethod("");
 
@@ -62,8 +56,24 @@ public class Sessions {
         return "";
     }
 
-    public void interact(int id) {
+    public Session interact(long id) {
 
+        RubyObject obj = (RubyObject) sessions.get(id);
+
+        if (obj != null) {
+
+            Session sesh = new Session(this.framework, obj);
+
+            if (sesh != null) {
+                return sesh;
+            } else {
+                Console.err("Session closed.");
+            }
+
+        } else {
+            Console.err("Session does not exsist.");
+        }
+
+        return null;
     }
-
 }

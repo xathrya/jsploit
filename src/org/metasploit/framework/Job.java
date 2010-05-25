@@ -14,8 +14,6 @@ import org.jruby.RubyArray;
 import org.jruby.RubyThread;
 import org.jruby.RubyTime;
 
-import java.util.Iterator;
-import java.util.Map;
 
 /**
  *

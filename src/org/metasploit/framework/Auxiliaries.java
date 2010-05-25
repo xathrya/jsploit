@@ -5,19 +5,10 @@
 
 package org.metasploit.framework;
 
-import java.util.List;
-import java.util.Iterator;
-
 import org.metasploit.simple.Console;
 
 import org.jruby.RubyString;
 import org.jruby.RubyObject;
-import org.jruby.RubyHash;
-import org.jruby.RubyBoolean;
-import org.jruby.RubyArray;
-import org.jruby.RubyNoMethodError;
-import org.jruby.RubyException;
-import org.jruby.RubyNil;
 
 /**
  *
@@ -31,7 +22,7 @@ public class Auxiliaries extends ModuleManager {
 
     public Auxiliary create(String mod) {
 
-        if (!this.getModule().keySet().contains(mod)) {
+        if (!this.self().keySet().contains(mod)) {
             Console.err("Auxiliary \"" + mod + "\" is not in the database.");
             return null;
         }
@@ -40,7 +31,7 @@ public class Auxiliaries extends ModuleManager {
 
         RubyString auxiliary_name = RubyString.newString(this.getFramework().ruby(), mod);
 
-        return new Auxiliary(this.getFramework(), (RubyObject) this.getFramework().invoke(this.getModule(), "create", auxiliary_name));
+        return new Auxiliary(this.getFramework(), (RubyObject) this.getFramework().invoke(this.self(), "create", auxiliary_name));
 
         //return new ;
 

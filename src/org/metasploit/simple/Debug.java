@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package org.metasploit.framework;
+package org.metasploit.simple;
 
 import java.util.Iterator;
 import java.util.Map;
@@ -21,7 +21,7 @@ import org.jruby.RubyFixnum;
  */
 public class Debug {
 
-    public static String fromObject(Object od) {
+    public static String StringObject(Object od) {
         if (od instanceof RubyString) {
             return ((RubyString) od).asJavaString();
         } else if (od instanceof RubyBoolean) {
@@ -43,6 +43,20 @@ public class Debug {
         }
     }
 
+    public static Object FromObject(Object od) {
+        if (od instanceof RubyString) {
+            return ((RubyString) od).asJavaString();
+        } else if (od instanceof RubyBoolean) {
+            return ((RubyBoolean) od).isTrue();
+        } else if (od instanceof RubyNil) {
+            return null;
+        } else if (od instanceof RubyFixnum) {
+            return ((RubyFixnum) od).getLongValue();
+        } else {
+            return "Unknown " + od.getClass().getCanonicalName();
+        }
+    }
+
     public static String HashDump(RubyHash ds) {
 
         String out = "";
@@ -54,7 +68,7 @@ public class Debug {
             Object key = entry.getKey();
             Object value = entry.getValue();
 
-            out += "KEY: " + fromObject(key) + ", VAL: " + fromObject(value) + "\n";
+            out += "KEY: " + StringObject(key) + ", VAL: " + StringObject(value) + "\n";
 
         }
 

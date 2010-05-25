@@ -18,7 +18,7 @@ public class Statistics {
     RubyObject statistics;
 
     public Statistics(Framework f) {
-        Console.out("Payloads Module called.");
+        Console.out("Statistics Module called.");
         this.framework = f;
         get();
     }

@@ -4,9 +4,13 @@
  */
 package org.metasploit.framework;
 
+import org.metasploit.simple.Debug;
+import org.metasploit.framework.types.Reference;
+
 import java.util.Map;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.ArrayList;
 
 import org.jruby.RubyObject;
 import org.jruby.RubyString;
@@ -14,11 +18,13 @@ import org.jruby.RubyHash;
 import org.jruby.RubyNil;
 import org.jruby.RubyBoolean;
 import org.jruby.RubyFixnum;
+import org.jruby.RubyArray;
 
 /**
  *
  * @author hughneale
  */
+
 public class Module<E> {
 
     private Framework framework;
@@ -135,6 +141,24 @@ public class Module<E> {
         return this.invoke("arch_to_s");
     }
 
+    public ArrayList<Reference> References() {
+
+        RubyArray odf = (RubyArray) this.framework.invoke(this.module, "references");
+        ArrayList<Reference> ary = new ArrayList();
+
+        Iterator itr = odf.iterator();
+
+        for(int i = 0; i < odf.size(); i++) {
+
+            RubyObject ref = (RubyObject) itr.next();
+            ary.add(new Reference(this.framework, ref));
+
+        }
+
+        return ary;
+
+    }
+
     public Map<String, OptBase> Options() {
 
         RubyHash ds = (RubyHash) this.framework.invoke(this.module, "options");
@@ -180,6 +204,13 @@ public class Module<E> {
         Object ds = this.framework.invoke(this.module, "validate");
         System.out.println(ds.getClass().getCanonicalName());
         return "";
+    }
+
+    public void datastore() {
+
+        Object dobj = this.framework.invoke(this.module, "datastore");
+        System.out.println(dobj.getClass().getCanonicalName());
+
     }
 
     public Framework getFramework() {

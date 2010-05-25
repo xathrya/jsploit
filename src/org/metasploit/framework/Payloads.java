@@ -22,7 +22,7 @@ public class Payloads extends ModuleManager {
 
      public Payload create(String mod) {
 
-        if (!this.getModule().keySet().contains(mod)) {
+        if (!this.self().keySet().contains(mod)) {
             Console.err("Payload \"" + mod + "\" is not in the database.");
             return null;
         }
@@ -31,7 +31,7 @@ public class Payloads extends ModuleManager {
 
         RubyString payload_name = RubyString.newString(this.getFramework().ruby(), mod);
 
-        return new Payload(this.getFramework(), (RubyObject) this.getFramework().invoke(this.getModule(), "create", payload_name));
+        return new Payload(this.getFramework(), (RubyObject) this.getFramework().invoke(this.self(), "create", payload_name));
 
     }
 

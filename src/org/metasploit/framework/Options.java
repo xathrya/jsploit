@@ -9,7 +9,6 @@ import java.util.HashMap;
 
 import org.jruby.RubyString;
 import org.jruby.RubyBoolean;
-import org.jruby.RubyInteger;
 import org.jruby.Ruby;
 
 /**
