@@ -138,8 +138,12 @@ public class DBManager {
 
     // @TODO
 
-    public ArrayList services(Workspace wrk, boolean only_up, long proto, String addresses, long ports) {
-        return services((RubyArray) this.framework.invoke(this.database, "services", wrk.self()));
+    public ArrayList services(Workspace wrk, boolean only_up, String proto, String addresses, String ports) {
+        RubyBoolean up = RubyBoolean.newBoolean(this.framework.ruby(), only_up);
+        RubyString protod = RubyString.newString(this.framework.ruby(), proto);
+        RubyString address = RubyString.newString(this.framework.ruby(), addresses);
+        RubyString prt = RubyString.newString(this.framework.ruby(), ports);
+        return services((RubyArray) this.framework.invoke(this.database, "services", wrk.self(), up, protod, address, prt));
     }
 
     public ArrayList services(Workspace wrk, boolean only_up, long proto, String addresses, long ports, String names) {
@@ -177,13 +181,16 @@ public class DBManager {
 
             long port = ((RubyFixnum) this.framework.invoke(od, "port")).getLongValue();
             String state = ((RubyString) this.framework.invoke(od, "state")).asJavaString();
-            String proto = ((RubyString) this.framework.invoke(od, "proto")).asJavaString();
+            Object proto = this.framework.invoke(od, "proto");
 
             Service c = new Service();
             c.setName(name);
             c.setPort(port);
             c.setState(state);
-            c.setProto(proto);
+
+            if(proto instanceof RubyString) {
+                c.setProto(((RubyString) proto).asJavaString());
+            }
 
             servs.add(c);
 
