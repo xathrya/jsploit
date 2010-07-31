@@ -48,6 +48,10 @@ public class ModuleManager {
         return this.modules;
     }
 
+    public Object get(String ob) {
+        return this.modules.get(ob);
+    }
+
     public Set getKeySet() {
         return this.modules.keySet();
     }
