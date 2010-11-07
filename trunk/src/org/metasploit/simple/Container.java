@@ -12,8 +12,7 @@ import org.jruby.RubyObject;
 
 import java.util.List;
 import java.util.ArrayList;
-
-import netshark.DataStore;
+import java.io.File;
 
 /**
  *
@@ -26,7 +25,9 @@ public class Container extends ScriptingContainer {
     private String MSF_DIR = "msf";
     private String JRUBY_DIR = "jruby";
     private short HEAP_SIZE = 75;
+    private char SEP = File.separatorChar;
 
+    // @TODO need to create an output stream object to handle console pipes
     private RubyObject input_stream;
     private RubyObject output_stream;
     
@@ -43,8 +44,8 @@ public class Container extends ScriptingContainer {
         }
         
         this.setCompatVersion(CompatVersion.RUBY1_9);
-        this.setHomeDirectory(DIR + JRUBY_DIR + DataStore.SEP);
-        this.setCurrentDirectory(DIR + MSF_DIR + DataStore.SEP);
+        this.setHomeDirectory(DIR + JRUBY_DIR + SEP);
+        this.setCurrentDirectory(DIR + MSF_DIR + SEP);
 
         // Adds MSF libaries to JRuby
         List<String> paths = new ArrayList();
@@ -82,7 +83,7 @@ public class Container extends ScriptingContainer {
         } else {
             JRUBY_DIR = directory;
         }
-        this.setHomeDirectory(JRUBY_DIR + DataStore.SEP);
+        this.setHomeDirectory(JRUBY_DIR + SEP);
     }
 
     public void setMetasploitDirectory(String directory) {
@@ -91,7 +92,7 @@ public class Container extends ScriptingContainer {
         } else {
             this.MSF_DIR = directory;
         }
-        this.setCurrentDirectory(MSF_DIR + DataStore.SEP);
+        this.setCurrentDirectory(MSF_DIR + SEP);
     }
 
     public String getDirectory() {

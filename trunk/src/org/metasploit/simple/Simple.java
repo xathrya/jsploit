@@ -18,8 +18,8 @@ public class Simple {
 
     public Object framework;
     public Container container;
-    private String framework_rb = "org/metasploit/ruby/framework.rb";
-    private String framework_dev_rb = "org/metasploit/rubyframework.dev.rb";
+    //private String framework_rb = "org/metasploit/ruby/framework.rb";
+    //private String framework_dev_rb = "org/metasploit/rubyframework.dev.rb";
     private String framework_min_rb = "org/metasploit/ruby/framework.min.rb";
 
     public Simple(Container c) throws Exception {

@@ -18,7 +18,10 @@ import org.jruby.RubyFixnum;
 /**
  *
  * @author hughneale
+ * @helper
+ *
  */
+
 public class Debug {
 
     public static String StringObject(Object od) {

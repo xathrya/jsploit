@@ -4,13 +4,13 @@
  */
 package org.metasploit.test;
 
-import org.metasploit.simple.Container;
 import org.metasploit.Metasploit;
 
 /**
  *
  * @author hughneale
  */
+
 public class Example {
 
     public static void main(String args[]) throws Exception {
