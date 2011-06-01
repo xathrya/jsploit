@@ -1,0 +1,25 @@
+You can set these paths as you see fit.
+
+mkdir -p /opt/jsploit/
+cd /opt/jsploit/
+mkdir jruby
+mkdir msf
+
+cd jruby
+// Download jruby-src and copy it to this directory
+
+cd msf
+svn co https://www.metasploit.com/svn/framework3/trunk/
+
+export JRUBY_HOME=/opt/jsploit/jruby/bin/
+export GEM_HOME=/opt/jsploit/jruby/lib/ruby/gems/1.8/
+
+cd /opt/jsploit/jruby/lib/ruby/gems/1.8/
+
+gem install jruby-openssl
+gem install mysql
+gem install sqlite3
+gem install jdbc-mysql
+gem install activerecord-jdbcmysql-adapter
+gem install jdbc-sqlite3
+gem install activerecord-jdbcsqlite3-adapter

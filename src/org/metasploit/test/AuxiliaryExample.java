@@ -10,7 +10,6 @@ import java.util.Iterator;
 import java.util.ArrayList;
 
 import org.metasploit.simple.Console;
-import org.metasploit.simple.Container;
 
 import org.metasploit.Metasploit;
 import org.metasploit.framework.Framework;
