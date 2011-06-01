@@ -12,6 +12,7 @@ import org.jruby.Ruby;
 import org.jruby.RubyObject;
 import org.jruby.RubyString;
 import org.jruby.runtime.ThreadContext;
+import org.jruby.runtime.backtrace.RubyStackTraceElement;
 import org.jruby.RubyException;
 
 /**
@@ -52,7 +53,7 @@ public class Framework {
     }
 
     private void print_stack(RubyException error) {
-        ThreadContext.RubyStackTraceElement[] stack = error.getBacktraceFrames();
+        RubyStackTraceElement[] stack = error.getBacktraceElements();
         for (int fail = 0; fail < stack.length; fail++) {
             Console.err("@ [" + stack[fail].getLineNumber() + "] " + stack[fail].getFileName());
         }

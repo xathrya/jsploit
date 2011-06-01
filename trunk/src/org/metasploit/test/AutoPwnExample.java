@@ -5,7 +5,6 @@
 package org.metasploit.test;
 
 import org.metasploit.Metasploit;
-import org.metasploit.simple.Container;
 import org.metasploit.framework.Framework;
 import org.metasploit.framework.Exploit;
 import org.metasploit.framework.OptBase;
@@ -46,9 +45,17 @@ public class AutoPwnExample {
             Map.Entry obj = (Map.Entry) itr.next();
 
             String key = (String) obj.getKey();
-            RubyObject objd = (RubyObject) obj.getValue();
+            Object objd = (Object) obj.getValue();
 
-            Exploit exp = new Exploit(mfw, objd).New();
+            // @TODO Fix this.
+            if(objd instanceof RubyObject) {
+                
+            } else {
+                System.out.println("No support for: " + objd.getClass().getCanonicalName());
+                continue;
+            }
+            
+            Exploit exp = new Exploit(mfw, (RubyObject)objd).New();
 
            // System.err.println(exp.FullName());
            // System.err.println(exp.ShortName());

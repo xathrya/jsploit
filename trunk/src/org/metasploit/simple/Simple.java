@@ -28,7 +28,7 @@ public class Simple {
         Console.out("MSF Framework starting...");
         
         InputStream is = getClass().getClassLoader().getResourceAsStream(framework_min_rb);
-        this.framework = this.container.runScriptlet(is, "framework.rb");
+        this.framework = this.container.runScriptlet(is, "framework.min.rb");
 
         if(this.framework == null) {
             Console.err("Failed to initalized MSF");
